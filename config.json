@@ -1,0 +1,5 @@
+{
+  "input_filename":  "data/reddit.multiple.subreddits.10K.dat",
+  "explicit_filename": "data/explicit.that.dat",
+  "implicit_filename": "data/implicit.that.dat"
+}
