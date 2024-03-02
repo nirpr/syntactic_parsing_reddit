@@ -2,7 +2,7 @@ import json
 import time
 import benepar
 
-#parser = benepar.Parser("benepar_en3")  # todo: uncomment this line once you have benepar installed
+parser = benepar.Parser("benepar_en3")  # todo: uncomment this line once you have benepar installed
 
 
 def identify_explicit_and_implicit_that_clauses(filename):
