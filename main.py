@@ -25,31 +25,31 @@ conjunction_and_question_words = [
     'whenever', 'wherever', 'however', 'why', 'how', 'because', 'since', 'if', 'whether',
     'than', 'though', 'although', 'even though', 'even if', 'as if', 'as though', 'while',
     'whereas', 'when', 'unless', 'provided that', 'in case', 'in the event that', 'so that',
-    'in order that', 'now that', 'that', 'for fear that', 'lest', 'lest', 'whilst'
+    'in order that', 'now that', 'that', 'for fear that', 'lest', 'lest', 'whilst',
+    'but if', 'so if', 'even if', 'even though', 'unless', 'lest', 'whereas', 'while',
+    'provided', 'providing', 'whether', 'whether or not', 'how', 'why', 'where', 'when',
+    'what', 'which', 'who', 'whose'
 ]
+
 
 
 def identify_explicit_and_implicit_that_clauses2(filename):
     print(f'looking for explicit and implicit "that" usages in {filename}')
-
     nlp = en_core_web_sm.load()
     nlp.add_pipe("benepar", config={"model": "benepar_en3"})
 
-    explicit_that_clauses = set()
-    implicit_that_clauses = set()
-    all_sentences = set()
+    explicit_sentences = set()
+    implicit_sentences = set()
     with open(filename, "r", encoding='utf-8') as file:
         for line in file:
             lineFound = False
-            all_sentences.add(line)
             line = ' '.join(line.split())
-
             line = line.strip()
 
             try:
                 doc = nlp(line)
             except:
-                print("ERROR IN PERCER")
+                print("ERROR with PERCER")
                 continue
 
             for sentence in doc.sents:
@@ -58,20 +58,20 @@ def identify_explicit_and_implicit_that_clauses2(filename):
                         if 'that' == token[0].text:
                             # Check if token has a parent and if its parent's tag is 'VP'
                             if token._.parent and 'VP' in token._.parent._.labels:
-                                explicit_that_clauses.add(sentence.text)
+                                explicit_sentences.add(sentence.text)
                                 lineFound = True
 
                         if token[0].text not in conjunction_and_question_words:
                             # Check if token has a parent and if its parent's tag is 'VP'
                             if token._.parent and 'VP' in token._.parent._.labels:
-                                implicit_that_clauses.add(sentence.text)
+                                implicit_sentences.add(sentence.text)
                                 lineFound = True
                                 break
 
                 if lineFound:
                     break
 
-    return explicit_that_clauses, implicit_that_clauses
+    return explicit_sentences, implicit_sentences
 
 def check_explicit(token):
     if 'that' == token[0].text:
