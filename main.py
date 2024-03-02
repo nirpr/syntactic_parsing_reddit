@@ -33,7 +33,7 @@ conjunction_and_question_words = [
 
 
 
-def identify_explicit_and_implicit_that_clauses2(filename):
+def identify_explicit_and_implicit_that_clauses(filename):
     print(f'looking for explicit and implicit "that" usages in {filename}')
     nlp = en_core_web_sm.load()
     nlp.add_pipe("benepar", config={"model": "benepar_en3"})
@@ -90,7 +90,7 @@ def check_implicit(token):
     return False
 
 
-def identify_explicit_and_implicit_that_clauses(filename):
+def identify_explicit_and_implicit_that_clauses5(filename):
     # todo: implement this function
     print(f'looking for explicit and implicit "that" usages in {filename}')
 
